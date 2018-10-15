@@ -1,0 +1,68 @@
+body, html {
+    height: 100vh;
+}
+
+header {
+    height: auto;
+    background: green;
+}
+
+.nav {
+    background: red;
+}
+
+footer {
+    height: auto;
+    background: purple;
+}
+
+.nav-link {
+    font-size: 36px;
+    margin: 0px 5vw;
+}
+
+.nav-item {
+    margin: 5px 0px;
+}
+
+.nav-mobile {
+    display: none;
+}
+
+.nav-lg {
+    display: flex;
+}
+
+@media only screen and (max-width: 980px) {
+    .nav-link {
+        font-size: 32px;
+        margin: 0px 3vw;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .nav-link {
+        font-size: 28px;
+        margin: 0px 2vw;
+    }
+
+}
+
+@media only screen and (max-width: 768px) {
+    .nav-link {
+        font-size: 28px;
+        margin: 0px 2vw;
+    }
+
+}
+
+@media only screen and (max-width: 640px) {
+    .nav-lg {
+        display: none;
+    }
+
+    .nav-mobile {
+        display: flex;
+    }
+
+}
