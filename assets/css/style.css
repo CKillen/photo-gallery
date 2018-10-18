@@ -33,6 +33,10 @@ footer {
     display: flex;
 }
 
+.gallery-button {
+    height: 50%;
+}
+
 @media only screen and (max-width: 980px) {
     .nav-link {
         font-size: 32px;

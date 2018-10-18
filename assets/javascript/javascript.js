@@ -1,18 +1,25 @@
-console.log('hello');
 const domGalleryThumbnail = document.getElementById("gallery-thumbnail");
-let currentSelected = 0;
+
 const maxShown = 5;
 
+let currentSelected = 0;
 
-const gallery = ["http://placehold.it/30x31", "http://placehold.it/30x32", "http://placehold.it/30x33", "http://placehold.it/30x34", "http://placehold.it/30x30", "http://placehold.it/30x31", "http://placehold.it/30x32", "http://placehold.it/30x33", "http://placehold.it/30x34", "http://placehold.it/30x30"];
+
+
+const gallery = [ "http://placehold.it/400x500", "http://placehold.it/400x501", "http://placehold.it/400x502", "http://placehold.it/400x504", "http://placehold.it/400x505", "http://placehold.it/400x506", "http://placehold.it/400x507", "http://placehold.it/400x508", "http://placehold.it/800x600"];
 
 populateThumbnails();
+changeMainImage();
+
+//add event click listener on thumbnails so you dont have to use arrow
+Array.from
 
 document.getElementById("gallery-left").addEventListener("click" ,function(){
     if(currentSelected !== 0)
     {
         currentSelected--;
         populateThumbnails();
+        changeMainImage();
     }
 });
 
@@ -21,8 +28,18 @@ document.getElementById("gallery-right").addEventListener("click" , function(){
     {
         currentSelected++;
         populateThumbnails();
+        changeMainImage();
     }
 });
+
+
+
+function changeMainImage()
+{
+    let domMainImg = document.getElementById("main-gallery-img");
+
+    domMainImg.src = gallery[currentSelected];
+}
 
 
 function populateThumbnails()
@@ -34,6 +51,7 @@ function populateThumbnails()
         for(let i = 0; i < maxShown; i++)
         {
             createThumbnailElemenet(i);
+            
         }
     }
     else if(currentSelected === gallery.length - 1)
@@ -82,5 +100,11 @@ function createThumbnailElemenet(galleryIndex)
         domNewImg.classList.add("border", "border-danger");
     }
     domGalleryThumbnail.appendChild(domNewImg);
+    domNewImg.addEventListener("click" , function()
+    {
+        currentSelected = gallery.indexOf(this.src);
+        populateThumbnails();
+        changeMainImage();
+    })
 }
 
