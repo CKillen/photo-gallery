@@ -1,15 +1,15 @@
 body, html {
     height: 100vh;
+    background: url("../images/snow.png") repeat;
+    font-family: 'Charmonman', cursive;
+    display: flex;
+    flex-direction: column;
 }
 
 header {
     height: auto;
-    background: green;
 }
 
-.nav {
-    background: red;
-}
 
 footer {
     height: auto;
@@ -48,21 +48,30 @@ footer {
 
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 640px) {
+
     .nav-link {
-        font-size: 28px;
-        margin: 0px 2vw;
+        font-size: 18px;
+        margin: 0px 1vw;
     }
 
 }
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 380px) {
     .nav-lg {
         display: none;
     }
 
     .nav-mobile {
         display: flex;
+        text-align: center;
     }
 
+    .nav-link {
+        font-size: 16px;
+    }
+
+    .nav-item {
+        margin: 0px 2em;
+    }
 }
