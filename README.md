@@ -1,2 +1,6 @@
-# photographer-base-site
-A basic site for a photographer
+# Photo Gallery
+
+A simple to implement photo gallery. 
+
+## How to use
+
