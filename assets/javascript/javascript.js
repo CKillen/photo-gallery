@@ -1,110 +1,208 @@
 const domGalleryThumbnail = document.getElementById("gallery-thumbnail");
 
-const maxShown = 5;
-
-let currentSelected = 0;
-
-
-
-const gallery = [ "http://placehold.it/400x500", "http://placehold.it/400x501", "http://placehold.it/400x502", "http://placehold.it/400x504", "http://placehold.it/400x505", "http://placehold.it/400x506", "http://placehold.it/400x507", "http://placehold.it/400x508", "http://placehold.it/800x600"];
-
-populateThumbnails();
-changeMainImage();
-
-//add event click listener on thumbnails so you dont have to use arrow
-Array.from
-
-document.getElementById("gallery-left").addEventListener("click" ,function(){
-    if(currentSelected !== 0)
-    {
-        currentSelected--;
-        populateThumbnails();
-        changeMainImage();
-    }
-});
-
-document.getElementById("gallery-right").addEventListener("click" , function(){
-    if(currentSelected < gallery.length - 1)
-    {
-        currentSelected++;
-        populateThumbnails();
-        changeMainImage();
-    }
-});
-
-
-
-function changeMainImage()
-{
-    let domMainImg = document.getElementById("main-gallery-img");
-
-    domMainImg.src = gallery[currentSelected];
-}
-
-
-function populateThumbnails()
-{
-    domGalleryThumbnail.innerHTML = "";
-
-    if(currentSelected === 0)
-    {
-        for(let i = 0; i < maxShown; i++)
+const gallery = {
+    gallery: [],
+    maxShown: null,
+    currentSelected: 0,
+    domMainImage: null,
+    domThumbnailHolder: null,
+    initalize: function(imageArray, thumbnailId, mainImgId){
+        
+        if(!isNaN(imageArray))
         {
-            createThumbnailElemenet(i);
+            this.makeRandomGallery(imageArray);
+        }
+        else
+        {
+            this.setGallery(imageArray);
+        }
+
+        this.domMainImage = document.getElementById(mainImgId);
+        this.domThumbnailHolder = document.getElementById(thumbnailId);
+
+        gallery.determineMaxThumbnails();
+        gallery.populateGallery();
+        
+        addEventListener('resize', function() {
+            gallery.determineMaxThumbnails();
+            gallery.populateThumbnails();
+        });
+
+        return this;
+    },
+    determineMaxThumbnails: function(){
+        if(document.documentElement.clientWidth > 1200 || window.innerWidth > 1200){
+            if(this.gallery.length > 9)
+            {
+                this.maxShown = 9;
+            }
+            else{
+                this.maxShown = this.gallery.length;
+            }
             
         }
-    }
-    else if(currentSelected === gallery.length - 1)
-    {
-        for(let i = gallery.length - maxShown; i < gallery.length; i++)
-        {
-            createThumbnailElemenet(i);
+        else if(document.documentElement.clientWidth > 900 || window.innerWidth > 900){
+            if(this.gallery.length > 7)
+            {
+                this.maxShown = 7;
+            }
+            else{
+                this.maxShown = this.gallery.length;
+            }
         }
-    }
-    else if(currentSelected - (maxShown / 2) < 0)
-    {
-        for(let i = 0; i < maxShown; i++)
-        {
-            createThumbnailElemenet(i);
+        else if(document.documentElement.clientWidth > 720 || window.innerWidth > 720){
+            if(this.gallery.length > 5)
+            {
+                this.maxShown = 5;
+            }
+            else{
+                this.maxShown = this.gallery.length;
+            }
         }
-    }
-    else if(currentSelected + (maxShown / 2) > gallery.length)
-    {
-        console.log("here");
-        for(let i = gallery.length - maxShown; i < gallery.length; i++)
+        else if(document.documentElement.clientWidth > 530 || window.innerWidth > 530){
+            if(this.gallery.length > 3)
+            {
+                this.maxShown = 3;
+            }
+            else{
+                this.maxShown = this.gallery.length;
+            }
+        }
+        else{
+            this.maxShown = 0;
+        }
+    },
+    createThumbnailElemenet: function(galleryIndex){
+        domNewImg = document.createElement("img");
+        domNewImg.src = this.gallery[galleryIndex];
+        domNewImg.classList.add("m-2");
+        domNewImg.style.width = "75px"
+        if(this.galleryIndex === this.currentSelected)
         {
-            createThumbnailElemenet(i);
-        }        
-    }
-    else if(currentSelected > 0 && currentSelected < gallery.length)
-    {
-        for(let i = currentSelected - ((maxShown - 1) / 2); i <= currentSelected + ((maxShown - 1) / 2); i++)
-        {
-            createThumbnailElemenet(i);
-        }        
-    }
+            domNewImg.classList.add("border", "border-danger");
+        }
+        domGalleryThumbnail.appendChild(domNewImg);
+        
+        let galleryObj = this;
 
+        domNewImg.addEventListener("click" , function()
+        {
+            galleryObj.currentSelected = galleryObj.gallery.indexOf(this.src);
+            galleryObj.populateThumbnails();
+            galleryObj.changeMainImage();
+        })
+    },
+    populateGallery: function(){
+        this.populateThumbnails();
+        this.changeMainImage();
+
+        let galleryObj = this;
+
+    },
+    makeRandomGallery: function(numOfPics){
+        for(let i = 0; i < numOfPics; i++)
+        {
+            
+            this.gallery.push("https://picsum.photos/" + randomImageSize(1500) + "x" + randomImageSize(1500) + "?random" + i);
+        }
+
+        function randomImageSize(max)
+        {
+            return Math.floor(Math.random() * Math.floor(max));
+        }
+    },
+    changeMainImage: function() {
+        let domMainImg = document.getElementById("main-gallery-img");
+
+        domMainImg.src = this.gallery[this.currentSelected];
+    },
+    populateThumbnails: function() {
+        this.domThumbnailHolder.innerHTML = "";
+
+        if(this.currentSelected === 0)
+        {
+            for(let i = 0; i < this.maxShown; i++)
+            {
+                this.createThumbnailElemenet(i);
+            }
+        }
+        else if(this.currentSelected === this.gallery.length - 1)
+        {
+            for(let i = this.gallery.length - this.maxShown; i < this.gallery.length; i++)
+            {
+                this.createThumbnailElemenet(i);
+            }
+        }
+        else if(this.currentSelected - (this.maxShown / 2) < 0)
+        {
+            for(let i = 0; i < this.maxShown; i++)
+            {
+                this.createThumbnailElemenet(i);
+            }
+        }
+        else if(this.currentSelected + (this.maxShown / 2) > this.gallery.length)
+        {
+            for(let i = this.gallery.length - this.maxShown; i < this.gallery.length; i++)
+            {
+                this.createThumbnailElemenet(i);
+            }        
+        }
+        else if(this.currentSelected > 0 && this.currentSelected < this.gallery.length)
+        {
+            for(let i = this.currentSelected - ((this.maxShown - 1) / 2); i <= this.currentSelected + ((this.maxShown - 1) / 2); i++)
+            {
+                this.createThumbnailElemenet(i);
+            }        
+        }
+    },
+    addThumbnailCss: function(){
+
+    },
+    removeThumbnailCss: function(){
+
+    },
+    addThumbnailClass: function(){
+
+    },
+    removeThumbnailClass: function(){
+
+    },
+    setGallery: function(array){
+
+    },
+    setMainImageId: function(mainImageId){
+
+    },
+    setThumbnailHolderId: function(thumbnailId){
+
+    },
+    setButtons: function(leftButtonId, rightButtonId)
+    {
+        galleryObj = this;
+
+        document.getElementById(leftButtonId).addEventListener("click" ,function(){
+            if(galleryObj.currentSelected !== 0)
+            {
+                galleryObj.currentSelected--;
+                galleryObj.populateThumbnails();
+                galleryObj.changeMainImage();
+            }
+        });
+        
+        document.getElementById(rightButtonId).addEventListener("click" , function(){
+            if(galleryObj.currentSelected < galleryObj.gallery.length - 1)
+            {
+                galleryObj.currentSelected++;
+                galleryObj.populateThumbnails();
+                galleryObj.changeMainImage();
+            }
+        });
+    }
 
     
-
 }
 
-function createThumbnailElemenet(galleryIndex)
-{
-    domNewImg = document.createElement("img");
-    domNewImg.src = gallery[galleryIndex];
-    domNewImg.classList.add("m-2");
-    domNewImg.style.width = "75px"
-    if(galleryIndex === currentSelected)
-    {
-        domNewImg.classList.add("border", "border-danger");
-    }
-    domGalleryThumbnail.appendChild(domNewImg);
-    domNewImg.addEventListener("click" , function()
-    {
-        currentSelected = gallery.indexOf(this.src);
-        populateThumbnails();
-        changeMainImage();
-    })
-}
+
+
+gallery.initalize(100, "gallery-thumbnail", "main-gallery-img").setButtons("gallery-left", "gallery-right");
 
