@@ -3,9 +3,9 @@
 A flexible, responsive photo gallery made with vanilla JavaScript. It is easy to implement and eliminates the need for
 the logic that is required to have a photo gallery within a website.
 
-## Functions
+# Functions
 
-### init(images, thumbnailHolderId, mainImageId)
+## init(images, thumbnailHolderId, mainImageId)
 #### Description
 Initializes the gallery
 #### Chainable
@@ -20,7 +20,7 @@ Initializes the gallery
 ###### gallery.init(["kitten.png", "kitten2.png"] , "my-thumbnail-place", "my-main-img") makes a gallery with kitten and kitten2
 
 
-### populateGallery()
+## populateGallery()
 #### Description
 populates the thumbnails and the main image, used after changes
 #### Nonchainable
@@ -30,7 +30,7 @@ populates the thumbnails and the main image, used after changes
 ###### gallery.changeMainImage("kitten.png").populateGallery() populates the gallery after changing image
 
 
-### changeMainImage(src)
+## changeMainImage(src)
 #### Description
 Changes the current image to the new specified img that matches the src given, must call populateGallery() to see changes
 #### Chainable
@@ -40,7 +40,7 @@ Changes the current image to the new specified img that matches the src given, m
 ###### gallery.changeMainImage("kitten.png").populateGallery() changes main image to the image with a src of kitten.png
 
 
-### addThumbnailClass(newClass)
+## addThumbnailClass(newClass)
 #### Description
 Adds a new class to ALL thumbnails, can add multiple classes with spaces but multiple classes must be removed the same way
 #### Chainable
@@ -51,7 +51,7 @@ Adds a new class to ALL thumbnails, can add multiple classes with spaces but mul
 ###### gallery.addThumbnailClass("border border-danager").populateGallery() Adds border border-danger to all thumbnails 
 ##### NOTE: This can only be removed by removing both at the same time such as .removeThumbnailClass("border border-danger")
 
-### addCurrentThumbnailClass(newClass)
+## addCurrentThumbnailClass(newClass)
 #### Description
 Adds a new class to currently selected thumbnail, can add multiple classes with spaces but multiple classes must be removed the same way
 #### Chainable
@@ -62,7 +62,7 @@ Adds a new class to currently selected thumbnail, can add multiple classes with 
 ###### gallery.addCurrentThumbnailClass("border border-danager").populateGallery() Adds border border-danger to currently selected thumbnail
 ##### NOTE: This can only be removed by removing both at the same time such as .removeCurrentThumbnailClass("border border-danger")
 
-### removeThumbnailClass(removeClass)
+## removeThumbnailClass(removeClass)
 #### Description
 removes class from all thumbnails
 #### Chainable
@@ -72,7 +72,7 @@ removes class from all thumbnails
 ###### gallery.removeThumbnailClass("thumbnail").populateGallery() removes thumbnail class from all thumbnails
 ###### gallery.removeThumbnailClass("border border-danager").populateGallery() removes border border-danger ONLY if it was declared the same way
 
-### removeCurrentThumbnailClass(removeClass)
+## removeCurrentThumbnailClass(removeClass)
 #### Description
 removes class from currently selected thumbnail
 #### Chainable
@@ -83,7 +83,7 @@ removes class from currently selected thumbnail
 ###### gallery.removeCurrentThumbnailClass("border border-danager").populateGallery() removes border border-danger ONLY if it was declared the same way
 
 
-### setGallery(array)
+## setGallery(array)
 #### Description
 Sets the gallery to the passed array of image srcs
 #### Chainable
@@ -93,7 +93,7 @@ Sets the gallery to the passed array of image srcs
 ###### gallery.setGallery(['dog.png', 'dog1.png']).populateGallery() Sets gallery to dog.png and dog1.png
 
 
-### setMainImageId(mainImageId)
+## setMainImageId(mainImageId)
 #### Description
 Sets the main image to dispaly in the div that's ID was passed 
 #### Chainable
@@ -104,7 +104,7 @@ Sets the main image to dispaly in the div that's ID was passed
 
 
 
-### setThumbnailHolderId(thumbnailHolderId)
+## setThumbnailHolderId(thumbnailHolderId)
 #### Description
 Sets the div where thumbnails are to be held 
 #### Chainable
@@ -115,7 +115,7 @@ Sets the div where thumbnails are to be held
 
 
 
-### setButtons(leftButtonId, rightButtonId)
+## setButtons(leftButtonId, rightButtonId)
 #### Description
 Sets buttons for navigating through thumbnails
 #### Chainable
