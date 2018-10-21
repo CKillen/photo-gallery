@@ -8,7 +8,7 @@ const gallery = {
     thumbnailClasses: [],
     currentThumbnailClasses: [],
     domThumbnailHolder: null,
-    initalize: function(imageArray, thumbnailId, mainImgId){
+    init: function(imageArray, thumbnailId, mainImgId){
 
         //set object for populating thumbnails and main image
         this.setMainImageId(mainImgId);
@@ -275,9 +275,7 @@ const gallery = {
         });
 
         return this;
-    }
-
-    
+    }   
 }
 
 images = ["assets/images/untitled-5.jpg" , "assets/images/untitled-11.jpg" , "assets/images/untitled-12.jpg" , 
